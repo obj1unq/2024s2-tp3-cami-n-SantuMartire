@@ -28,12 +28,12 @@ describe "cosas" {
 
     test "arena" {
 
-        assert.equals(0, arena.peso())
+        assert.equals(0, arenaGranel.peso())
 
-        camion.cargar(arena)
+        camion.cargar(arenaGranel)
         //al ser cargada se agregan 20 kilos
 
-        assert.equals(20, arena.peso())
+        assert.equals(20, arenaGranel.peso())
     }
 
     test "bateria" {
@@ -56,8 +56,8 @@ describe "cosas" {
         assert.equals(100,contenedor.peso())
         assert.equals(0,contenedor.nivelPeligrosidad())
 
-        contenedor.cargar(bumblebee)
-        contenedor.cargar(knightRider)
+        contenedor.llenar(bumblebee)
+        contenedor.llenar(knightRider)
 
         assert.equals(1400,contenedor.peso())
         assert.equals(15,contenedor.nivelPeligrosidad())

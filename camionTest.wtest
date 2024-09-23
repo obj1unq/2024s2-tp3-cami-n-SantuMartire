@@ -27,8 +27,8 @@ describe "tests de camion"{
 
         assert.that(camion.todoPesoPar())
 
-        camion.cargar(arena)
-        arena.agregarPeso(3)
+        camion.cargar(arenaGranel)
+        arenaGranel.agregarPeso(3)
 
         assert.notThat(camion.todoPesoPar())
 
@@ -76,11 +76,11 @@ describe "tests de camion"{
 // excedidoDePeso() -----------------------------------------   
 
     test "camion con knightRider, bumblebee y 800 kilos de arena esta excedido de peso" {
-        arena.agregarPeso(780)
+        arenaGranel.agregarPeso(780)
         
         camion.cargar(knightRider)
         camion.cargar(bumblebee)
-        camion.cargar(arena)
+        camion.cargar(arenaGranel)
 
         assert.that(camion.excedidoDePeso())
         
@@ -111,7 +111,7 @@ describe "tests de camion"{
         camion.cargar(knightRider)
         camion.cargar(bateria)
 
-        assert.equals(#{knightRider,bateria}, camion.objetosMasPeligrososQue(arena))
+        assert.equals(#{knightRider,bateria}, camion.objetosMasPeligrososQue(arenaGranel))
         assert.equals(#{bateria}, camion.objetosMasPeligrososQue(bumblebee))
         assert.equals(#{}, camion.objetosMasPeligrososQue(residuos))
     }
@@ -121,17 +121,17 @@ describe "tests de camion"{
     test "camion con knightRider puede circular en ruta con nivel de peligrosidad 50,
         pero no si lleva 1520 kilos de arena o residuos" {
 
-        arena.agregarPeso(1500)
+        arenaGranel.agregarPeso(1500)
 
         camion.cargar(knightRider)
 
         assert.that(camion.puedeCircularEnRuta(50))
         
-        camion.cargar(arena)
+        camion.cargar(arenaGranel)
 
         assert.notThat(camion.puedeCircularEnRuta(50))
 
-        camion.descargar(arena)
+        camion.descargar(arenaGranel)
         camion.cargar(residuos)
 
         assert.notThat(camion.puedeCircularEnRuta(50))
@@ -201,15 +201,15 @@ describe "tests de camion"{
         
         vecinales.pesoMax(1700)
 
-        arena.agregarPeso(500)
+        arenaGranel.agregarPeso(500)
 
-        camion.cargar(arena)
-        assert.equals(#{arena}, camion.cosas())
+        camion.cargar(arenaGranel)
+        assert.equals(#{arenaGranel}, camion.cosas())
 
         camion.transportar(almacen,vecinales)
 
         assert.equals(#{}, camion.cosas())
-        assert.equals(#{arena}, almacen.cosas())
+        assert.equals(#{arenaGranel}, almacen.cosas())
     }
     
     test "camion con bumblebee no puede transportar a almacen por ruta 9 y tira excepción" {

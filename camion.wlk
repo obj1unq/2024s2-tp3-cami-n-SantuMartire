@@ -59,18 +59,22 @@ object camion {
 //----------------------------Agregados al camión------------------------------------
 
 	method tieneAlgoQuePesaEntre(min,max) {
+		//indica si el peso de alguna de las cosas que tiene el camión está en ese intervalo
 		return (cosas.any({ cosa => (cosa.peso() >= min) and (cosa.peso() <= max) }))
 	}
 
 	method cosaMasPesada() {
+		//la cosa más pesada que tenga el camión
 		return (cosas.max({ cosa => cosa.peso() }))
 	}
 
 	method pesos() {
+		//devuelve una lista con _los pesos_ de cada cosa que tiene el camión
 		return (cosas.map({ cosa => cosa.peso() }))
 	}
 
 	method totalBultos() {
+		//la suma de la cantidad de bultos que está transportando.
 		return (cosas.map({ cosa => cosa.valorBulto() })).sum()
 	}
 	
@@ -92,10 +96,13 @@ object camion {
 	}
 
 	method validarPeso() {
+		//El camión no tiene que estar excedido de peso
 		if (self.excedidoDePeso()) {self.error("esta excedido de peso")}
 	}
 
 	method validarBultos(destino) {
+		//El almacén tiene una cantidad de bultos máximos que no puede superar. Por ejemplo, si contiene arena a granel (1 bulto), el máximo de bultos
+		//del almacén se configura en 3, y el camión contiene a Bumblebee y Knight Rider (3 bultos), entonces no se puede transportar.
 		if ((self.totalBultos() + destino.totalBultos()) > destino.bultosMax()) {self.error("esta excedido de bultos")}
 	}
 
@@ -105,17 +112,19 @@ object camion {
 }
 
 object rutaNueve {
+	//El nivel de peligrosidad de la ruta 9 es 11, solo se puede usar la ruta 9 en los casos en "puedaCircularEnRuta" del punto 1
 	const nivelPeligrosidad = 11
 
-	method camionPuedePasar(camionD) {
-		return camionD.puedeCircularEnRuta(nivelPeligrosidad)
+	method camionPuedePasar(camion) {
+		return camion.puedeCircularEnRuta(nivelPeligrosidad)
 	}
 }
 
 object vecinales {
+	//Los caminos vecinales tienen un peso máximo soportado que es configurable. El peso total del camión no puede ser superior al peso tolerado
 	var property  pesoMax = 0
 
 	method camionPuedePasar(camionD) {
-		return (camionD.pesoTotal() < pesoMax)
+		return (camion.pesoTotal() < pesoMax)
 	}
 }

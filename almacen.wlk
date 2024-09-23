@@ -1,12 +1,12 @@
 object almacen {
-    const property cosas = #{}
+    const property cosasAlmacenadas = #{}
     var property bultosMax = 3
 
-    method cargar(cosasD) {
-        cosas.addAll(cosasD)
+    method cargar(cosasAlmacen) {
+        cosasAlmacenadas.addAll(cosasAlmacen)
     }
 
     method totalBultos() {
-        return (cosas.map({ cosa => cosa.valorBulto() })).sum()
+        return (cosasAlmacenadas.map({ cosa => cosa.valorBulto() })).sum()
     }
 }
